@@ -19,8 +19,9 @@ using a vault encryption for `vars/keys.yaml` for API key protection
 `ansible-playbook test.yaml --ask-vault-pass`
 
 
-### meraki_network_facts documentation
-`
+#### meraki_network_facts documentation
+
+```
 module: meraki_network_facts
 short_description: returns facts about meraki network or device object.
 options:
@@ -80,4 +81,4 @@ options:
                 - Useful debugging. displays URL header sent to meraki dashboard.
             required: False
             default: False
-`
+```
