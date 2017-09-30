@@ -1,0 +1,35 @@
+---
+
+- hosts: localhost
+  pre_tasks:
+    - name: pre tasks
+      include_vars:
+        file: keys.yaml
+
+- name: test new module
+  connection: local
+  hosts: localhost
+  tasks:
+    - name: run module with networkid
+      meraki_network_facts:
+        api_key: "{{api}}"
+        organization: "188917"
+        networkid: "N_1787100017109249"
+        resources:
+          - s2svpn
+          - ssids
+
+    - name: run module with serial
+      meraki_network_facts:
+        api_key: "{{api}}"
+        organization: "133908"
+        serial: "Q2JD-64BX-AGRL"
+        resources:
+          - networks
+          - devices
+
+    - name: run module with serial
+      meraki_network_facts:
+        api_key: "{{api}}"
+        organization: ""188917"
+        networkname: "test"
