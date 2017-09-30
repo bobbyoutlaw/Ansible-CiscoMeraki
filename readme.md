@@ -18,6 +18,140 @@ using a vault encryption for `vars/keys.yaml` for API key protection
 
 `ansible-playbook test.yaml --ask-vault-pass`
 
+```
+
+- name: gather general facts about networks belonging to organization
+  meraki_network_facts:
+    api_key: 123456789A
+    dashboard: dashboard.meraki.com
+    organization: 552400
+    serial: Q2XX-XXXX-XXXX
+
+
+- name: gather vlan facts about specifc networks
+  meraki_network_facts:
+    api_key: 123456789A
+    organization: 552400
+    networkid: N_1234"
+
+api-endpoints:
+  description: nested dictionary of all URL iterated to retrieve state data
+  returned: always
+  type: dictionary
+stdout:
+    clients:
+      description: List the clients of a device, up to a maximum of a month ago.
+      returned: always
+      type: list
+    network:
+      description: List the networks in an organization
+      returned: always
+      type: list
+    network_neighbors:
+      description: List the devices in a network
+      returned: always
+      type: list
+    uplinks:
+      description: Return an array containing the uplink information for a device.
+      returned: always
+      type: list
+    routes:
+      description: List the static routes for this network
+      returned: always
+      type: list
+
+organizations:
+    description: list of networks that belong to organization
+    returned: always
+    type: list
+    sample: {
+        "ansible_facts": {
+            "api-endpoints": {
+                "https://n126.meraki.com/api/v0/devices/Q2XX-XXXX-XXXX/clients?timespan=86400": 200,
+                "https://n126.meraki.com/api/v0/networks/N_1234": 200,
+                "https://n126.meraki.com/api/v0/networks/N_1234/devices": 200,
+                "https://n126.meraki.com/api/v0/networks/N_1234/devices/Q2XX-XXXX-XXXX": 200,
+                "https://n126.meraki.com/api/v0/networks/N_1234/devices/Q2XX-XXXX-XXXX/uplink": 200,
+                "https://n126.meraki.com/api/v0/organizations/552400/inventory": 200
+            },
+            "stdout": {
+                "clients-Q2XX-XXXX-XXXX": [
+                    {
+                        "description": null,
+                        "dhcpHostname": null,
+                        "id": "myPC",
+                        "ip": "192.168.20.64",
+                        "mac": "24:e9:b3:26:1e:03",
+                        "mdnsName": null,
+                        "usage": {
+                            "recv": 559974.4407867091,
+                            "sent": 213858.6550663103
+                        },
+                        "vlan": ""
+                    }
+                ],
+                "network": {
+                    "id": "N_1234",
+                    "name": "Branch2313",
+                    "organizationId": "552400",
+                    "tags": "",
+                    "timeZone": "America/Los_Angeles",
+                    "type": "appliance"
+                },
+                "network_neighbors": [
+                    {
+                        "address": "123 Main St, ME 0000",
+                        "lat": 42.3190961,
+                        "lng": -83.6827825,
+                        "mac": "00:18:0a:85:96:c8",
+                        "model": "MX100",
+                        "name": null,
+                        "networkId": "N_1234",
+                        "serial": "Q2XX-XXXX-XXXX",
+                        "tags": " recently-added ",
+                        "wan1Ip": "192.168.8.9",
+                        "wan2Ip": null
+                    },
+                    {
+                        "address": "123 Main St, ME 0000",
+                        "lat": 42.3190961,
+                        "lng": -83.6827825,
+                        "mac": "00:18:0a:85:94:58",
+                        "model": "MX100",
+                        "name": null,
+                        "networkId": "N_1234",
+                        "serial": "Q3XX-XXXX-XXXX",
+                        "tags": " recently-added ",
+                        "wan1Ip": "192.168.8.10",
+                        "wan2Ip": null
+                    }
+                ],
+                "uplinks-Q2XX-XXXX-XXXX": [
+                    {
+                        "dns": "192.168.33.110, 192.168.33.111",
+                        "gateway": "192.168.8.1",
+                        "interface": "WAN 1",
+                        "ip": "192.168.8.9",
+                        "publicIp": "1.2.3.4",
+                        "status": "Active",
+                        "usingStaticIp": true
+                    }
+                ],
+                "uplinks-Q3XX-XXXX-XXXX": [
+                    {
+                        "dns": "192.168.33.110, 192.168.33.111",
+                        "gateway": "192.168.7.1",
+                        "interface": "WAN 1",
+                        "ip": "192.168.7.9",
+                        "publicIp": "2.2.3.4",
+                        "status": "Active",
+                        "usingStaticIp": true
+                    }
+                ]
+            }
+
+
+```
 
 #### meraki_network_facts documentation
 
