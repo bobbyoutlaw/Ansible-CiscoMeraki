@@ -28,11 +28,15 @@ using a vault encryption for `vars/keys.yaml` for API key protection
     serial: Q2XX-XXXX-XXXX
 
 
-- name: gather vlan facts about specifc networks
+- name: gather vlan, client and site to site vpn facts about specifc networks
   meraki_network_facts:
     api_key: 123456789A
     organization: 552400
     networkid: N_1234"
+    resources:
+          - vlans
+          - clients
+          - s2svpn
 
 api-endpoints:
   description: nested dictionary of all URL iterated to retrieve state data
