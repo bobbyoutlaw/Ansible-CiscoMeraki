@@ -1,13 +1,17 @@
 ## Ansible Module: Cisco Meraki
-This module is for use with Cisco Meraki dashboard API.  Meraki uses a unique structure and terminology that slightly differs from traditional networking.  The goal is retrieve a comprehensive set of network related facts from a specific Meraki organization
+This module is for use with Cisco Meraki dashboard API.  IMO, Meraki uses a unique structure and terminology that slightly differs from traditional way of organizing network data.  The goal is to retrieve a comprehensive set of network related facts from a specific Meraki organization
 
-`meraki.py` is to be used a module_utils library.  it handles basic API requests to meraki dashboard and few handy queries to retrieve a list of networks in an organization or list of devices in a network.
+`meraki.py` is to be used a module_utils library.  It handles basic API requests to meraki dashboard and few handy queries to retrieve a list of networks in an organization or list of devices in a network.
 
-`meraki_network_facts.py` only retrieves data about a specific organization.  it does to make changes to any configuration.  More modules to come.
+`meraki_network_facts.py` only retrieves data about a specific organization.  It does not make any changes to configuration.  More modules to come.
 
 ### Requirements
 
 https://documentation.meraki.com/zGeneral_Administration/Other_Topics/The_Cisco_Meraki_Dashboard_API
+
+Cisco Learning Labs provide a sandbox account access for test API key:
+
+https://learninglabs.cisco.com/modules/getting-started-with-meraki/meraki-dashboard-api/step/2
 
 ### Examples
 
