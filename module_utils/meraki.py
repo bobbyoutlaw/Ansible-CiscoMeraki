@@ -1,6 +1,6 @@
 import json
 import requests
-import httplib
+import http.client
 import urllib3
 from ansible.module_utils import api
 from ansible.module_utils.basic import *
@@ -98,9 +98,9 @@ class DashApi:
         d = self.device_elements()
         n = self.network_elements()
         for item in self.resourceslist:
-            if (item in d.keys()) and (serial is not None) and (model is not None):
+            if (item in list(d.keys())) and (serial is not None) and (model is not None):
                 d[item]['action'](serial=serial, model=model)
-            elif (item in n.keys()) and (networkid is not None):
+            elif (item in list(n.keys())) and (networkid is not None):
                 n[item]['action'](networks=networkid)
             #else:
                 #self.result['ansible_facts']['stdout'] = [serial, model]
@@ -143,7 +143,7 @@ class DashApi:
             datalist = newlist
         d={}
         l=[]
-        [(k,v)] = fkey.items()
+        [(k,v)] = list(fkey.items())
         for item in datalist:
             eachlist=[]
             if item[k] == v:
@@ -182,7 +182,7 @@ class DashApi:
         # returns  Model Number from Device Inventory matching Serial
         data = self.get_networkdevices('query')
         datalist = self._query(data, {'serial':serial}, ['model'])
-        keyname=datalist[0].keys()
+        keyname=list(datalist[0].keys())
         topkey=str(keyname[0])
         model = datalist[0][serial]['model']
         return model
@@ -192,7 +192,7 @@ class DashApi:
         # mac address is used as top-level key
         data = self.get_device('query')
         datalist = self._query(data, {'networkId':network}, ['serial','model'], alias='mac')
-        keyname=datalist[0].keys()
+        keyname=list(datalist[0].keys())
         topkey=str(keyname[0])
         return datalist
 
@@ -200,7 +200,7 @@ class DashApi:
         # returns Serial Number from Organization Inventory matching NetworkID
         data = self.get_orginventory('query')
         datalist = self._query(data, {'serial':serial}, ['networkId'])
-        keyname=datalist[0].keys()
+        keyname=list(datalist[0].keys())
         topkey=str(keyname[0])
         self.networkId = datalist[0][serial]['networkId']
         return self.networkId
@@ -351,7 +351,7 @@ class DashApi:
     REQUESTS = '''
     '''
     def build_url (self):
-        for k, v in self.urldict.items():
+        for k, v in list(self.urldict.items()):
             self.resource = str(v)
             self.result_key = str(k)
             results = self.api_get()
@@ -360,7 +360,7 @@ class DashApi:
     def dep_build_url (self, urldict=None):
         if urldict is None:
             urldict = self.urldict
-        for k, v in urldict.items():
+        for k, v in list(urldict.items()):
             self.resource = str(v)
             self.result_key = str(k)
             results = self.api_get()
@@ -371,7 +371,7 @@ class DashApi:
         #the ansible module will return failure.
         f= int()
         l = len(self.result['ansible_facts']['api-endpoints'])
-        for k,v in self.result['ansible_facts']['api-endpoints'].iteritems():
+        for k,v in list(self.result['ansible_facts']['api-endpoints'].items()):
             if v != 200:
                 f += 1
         d = f/float(l)
