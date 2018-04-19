@@ -31,5 +31,5 @@
     - name: run module with serial
       meraki_network_facts:
         api_key: "{{api}}"
-        organization: ""188917"
+        organization: "188917"
         networkname: "test"
