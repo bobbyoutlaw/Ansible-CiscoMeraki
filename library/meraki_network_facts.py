@@ -210,7 +210,7 @@ from ansible.module_utils.basic import AnsibleModule
 
 def iterate_devices(meraki, datalist):
     for item in datalist:
-        key = item.keys()
+        key = list(item.keys())
         keys = str(key[0])
         device = item[keys][0]['serial']
         model = item[keys][1]['model']
